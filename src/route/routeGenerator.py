@@ -114,37 +114,19 @@ while running:
             # update the stickman's position and limb angles based on user input
             keys = pg.key.get_pressed()
             if keys[pg.K_LEFT]:
-                torso.rect.x -= 5
-                left_upper_arm.rect.center = (torso.rect.left, torso.rect.centery)
-                left_lower_arm.rect.center = (left_upper_arm.rect.right - 5, left_upper_arm.rect.bottom - 5)
-                right_upper_leg.rect.center = (torso.rect.centerx + 5, torso.rect.bottom)
-                right_lower_leg.rect.center = (right_upper_leg.rect.right - 5, right_upper_leg.rect.bottom - 5)
+                for sprite in all_sprites:
+                    sprite.rect.x -= 5
             elif keys[pg.K_RIGHT]:
-                torso.rect.x += 5
-                right_upper_arm.rect.center = (torso.rect.right, torso.rect.centery)
-                right_lower_arm.rect.center = (right_upper_arm.rect.right + 5, right_upper_arm.rect.bottom - 5)
-                left_upper_leg.rect.center = (torso.rect.centerx - 5, torso.rect.bottom)
-                left_lower_leg.rect.center = (left_upper_leg.rect.right - 5, left_upper_leg.rect.bottom - 5)
+                for sprite in all_sprites:
+                    sprite.rect.x += 5
             elif keys[pg.K_UP]:
-                torso.rect.y -= 5
-                left_upper_arm.rect.center = (torso.rect.left, torso.rect.centery - 10)
-                left_lower_arm.rect.center = (left_upper_arm.rect.right - 5, left_upper_arm.rect.bottom - 5)
-                right_upper_arm.rect.center = (torso.rect.right, torso.rect.centery - 10)
-                right_lower_arm.rect.center = (right_upper_arm.rect.right + 5, right_upper_arm.rect.bottom - 5)
-                left_upper_leg.rect.center = (torso.rect.centerx - 5, torso.rect.bottom)
-                left_lower_leg.rect.center = (left_upper_leg.rect.right - 5, left_upper_leg.rect.bottom - 5)
-                right_upper_leg.rect.center = (torso.rect.centerx + 5, torso.rect.bottom)
-                right_lower_leg.rect.center = (right_upper_leg.rect.right - 5, right_upper_leg.rect.bottom - 5)
+                for sprite in all_sprites:
+                    sprite.rect.y -= 5
             elif keys[pg.K_DOWN]:
-                torso.rect.y += 5
-                left_upper_arm.rect.center = (torso.rect.left, torso.rect.centery + 10)
-                left_lower_arm.rect.center = (left_upper_arm.rect.right - 5, left_upper_arm.rect.bottom - 5)
-                right_upper_arm.rect.center = (torso.rect.right, torso.rect.centery + 10)
-                right_lower_arm.rect.center = (right_upper_arm.rect.right + 5, right_upper_arm.rect.bottom - 5)
-                left_upper_leg.rect.center = (torso.rect.centerx - 5, torso.rect.bottom)
-                left_lower_leg.rect.center = (left_upper_leg.rect.right - 5, left_upper_leg.rect.bottom - 5)
-                right_upper_leg.rect.center = (torso.rect.centerx + 5, torso.rect.bottom)
-                right_lower_leg.rect.center = (right_upper_leg.rect.right - 5, right_upper_leg.rect.bottom - 5)
+                for sprite in all_sprites:
+                    sprite.rect.y += 5
+            
+
 
         elif event.type == pg.MOUSEBUTTONDOWN:
             pg.draw.circle(climbing_route, (128, 0, 0), pg.mouse.get_pos(), 5)
