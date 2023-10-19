@@ -1,0 +1,2 @@
+I am hoping to test my data science skills by creating an AI that learns how to climb, by creating a simulation of a climbing route and a climbing agent, then training the agent using reinforcement learning. 
+This will be done all in python at least initially, let's list the steps that will need to be done to complete this task:
