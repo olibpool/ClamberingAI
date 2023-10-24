@@ -4,12 +4,12 @@ import pygame as pg
 pg.init()
 
 # set up the window
-window_size = (800, 600)
+window_size = (1920, 1080)
 screen = pg.display.set_mode(window_size)
 pg.display.set_caption("Climbing Simulator")
 
 # define the route
-climbing_route = pg.Surface((800, 600))
+climbing_route = pg.Surface((1920, 1080))
 climbing_route.fill((255, 255, 255))
 
 # draw the route
@@ -35,7 +35,7 @@ head = pg.sprite.Sprite()
 head.image = pg.Surface((20, 20))
 head.image.fill((255, 0, 0))
 head.rect = head.image.get_rect()
-head.rect.center = (400, 200)
+head.rect.center = (400, 210)
 
 torso = pg.sprite.Sprite()
 torso.image = pg.Surface((20, 40))
@@ -43,66 +43,48 @@ torso.image.fill((255, 0, 0))
 torso.rect = torso.image.get_rect()
 torso.rect.center = (400, 240)
 
-left_upper_arm = pg.sprite.Sprite()
-left_upper_arm.image = pg.Surface((10, 20))
-left_upper_arm.image.fill((255, 0, 0))
-left_upper_arm.rect = left_upper_arm.image.get_rect()
-left_upper_arm.rect.center = (390, 240)
+left_arm = pg.sprite.Sprite()
+left_arm.image = pg.Surface((10, 40))
+left_arm.image.fill((255, 0, 0))
+left_arm.rect = left_arm.image.get_rect()
+left_arm.rect.center = (390, 240)
 
-left_lower_arm = pg.sprite.Sprite()
-left_lower_arm.image = pg.Surface((10, 20))
-left_lower_arm.image.fill((255, 0, 0))
-left_lower_arm.rect = left_lower_arm.image.get_rect()
-left_lower_arm.rect.center = (385, 260)
+right_arm = pg.sprite.Sprite()
+right_arm.image = pg.Surface((10, 40))
+right_arm.image.fill((255, 0, 0))
+right_arm.rect = right_arm.image.get_rect()
+right_arm.rect.center = (410, 240)
 
-right_upper_arm = pg.sprite.Sprite()
-right_upper_arm.image = pg.Surface((10, 20))
-right_upper_arm.image.fill((255, 0, 0))
-right_upper_arm.rect = right_upper_arm.image.get_rect()
-right_upper_arm.rect.center = (410, 240)
+left_leg = pg.sprite.Sprite()
+left_leg.image = pg.Surface((10, 40))
+left_leg.image.fill((255, 0, 0))
+left_leg.rect = left_leg.image.get_rect()
+left_leg.rect.center = (395, 280)
 
-right_lower_arm = pg.sprite.Sprite()
-right_lower_arm.image = pg.Surface((10, 20))
-right_lower_arm.image.fill((255, 0, 0))
-right_lower_arm.rect = right_lower_arm.image.get_rect()
-right_lower_arm.rect.center = (415, 260)
-
-left_upper_leg = pg.sprite.Sprite()
-left_upper_leg.image = pg.Surface((10, 20))
-left_upper_leg.image.fill((255, 0, 0))
-left_upper_leg.rect = left_upper_leg.image.get_rect()
-left_upper_leg.rect.center = (395, 280)
-
-left_lower_leg = pg.sprite.Sprite()
-left_lower_leg.image = pg.Surface((10, 20))
-left_lower_leg.image.fill((255, 0, 0))
-left_lower_leg.rect = left_lower_leg.image.get_rect()
-left_lower_leg.rect.center = (395, 300)
-
-right_upper_leg = pg.sprite.Sprite()
-right_upper_leg.image = pg.Surface((10, 20))
-right_upper_leg.image.fill((255, 0, 0))
-right_upper_leg.rect = right_upper_leg.image.get_rect()
-right_upper_leg.rect.center = (405, 280)
-
-right_lower_leg = pg.sprite.Sprite()
-right_lower_leg.image = pg.Surface((10, 20))
-right_lower_leg.image.fill((255, 0, 0))
-right_lower_leg.rect = right_lower_leg.image.get_rect()
-right_lower_leg.rect.center = (405, 300)
+right_leg = pg.sprite.Sprite()
+right_leg.image = pg.Surface((10, 40))
+right_leg.image.fill((255, 0, 0))
+right_leg.rect = right_leg.image.get_rect()
+right_leg.rect.center = (405, 280)
 
 # add the stickman's body parts to the sprite group
 all_sprites = pg.sprite.Group()
 all_sprites.add(head)
 all_sprites.add(torso)
-all_sprites.add(left_upper_arm)
-all_sprites.add(left_lower_arm)
-all_sprites.add(right_upper_arm)
-all_sprites.add(right_lower_arm)
-all_sprites.add(left_upper_leg)
-all_sprites.add(left_lower_leg)
-all_sprites.add(right_upper_leg)
-all_sprites.add(right_lower_leg)
+all_sprites.add(left_arm)
+all_sprites.add(left_leg)
+all_sprites.add(right_arm)
+all_sprites.add(right_leg)
+
+# define the stickman's body part angles
+head_angle = 0
+torso_angle = 0
+left_arm_angle = 0
+right_arm_angle = 0
+left_leg_angle = 0
+right_leg_angle = 0
+
+# add the contraction and extensions of the limbs that represent the stickman's muscles to the sprite group
 
 # main loop
 running = True
@@ -111,27 +93,33 @@ while running:
         if event.type == pg.QUIT:
             running = False
         elif event.type == pg.KEYDOWN:
-            # update the stickman's position and limb angles based on user input
-            keys = pg.key.get_pressed()
-            if keys[pg.K_LEFT]:
-                for sprite in all_sprites:
-                    sprite.rect.x -= 5
-            elif keys[pg.K_RIGHT]:
-                for sprite in all_sprites:
-                    sprite.rect.x += 5
-            elif keys[pg.K_UP]:
-                for sprite in all_sprites:
-                    sprite.rect.y -= 5
-            elif keys[pg.K_DOWN]:
-                for sprite in all_sprites:
-                    sprite.rect.y += 5
-            
-
+            if event.key == pg.K_q:
+                left_arm_angle += 10
+            elif event.key == pg.K_w:
+                left_arm_angle -= 10
+            elif event.key == pg.K_e:
+                right_arm_angle += 10
+            elif event.key == pg.K_r:
+                right_arm_angle -= 10
+            elif event.key == pg.K_t:
+                left_leg_angle += 10
+            elif event.key == pg.K_y:
+                left_leg_angle -= 10
+            elif event.key == pg.K_u:
+                right_leg_angle += 10
+            elif event.key == pg.K_i:
+                right_leg_angle -= 10
 
         elif event.type == pg.MOUSEBUTTONDOWN:
             pg.draw.circle(climbing_route, (128, 0, 0), pg.mouse.get_pos(), 5)
             print(f"pg.draw.circle(climbing_route, (0, 0, 0), {pg.mouse.get_pos()}, 5)")
         
+        # rotate the limbs based on the angle variables
+        left_arm.image = pg.transform.rotate(pg.Surface((10, 40)), left_arm_angle)
+        right_arm.image = pg.transform.rotate(pg.Surface((10, 40)), right_arm_angle)
+        left_leg.image = pg.transform.rotate(pg.Surface((10, 40)), left_leg_angle)
+        right_leg.image = pg.transform.rotate(pg.Surface((10, 40)), right_leg_angle)
+
         # update the sprite group
         all_sprites.update()
 
@@ -141,5 +129,5 @@ while running:
 
         # update the display
         pg.display.update()
-            
+             
 pg.quit()

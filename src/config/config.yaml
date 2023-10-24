@@ -1,0 +1,5 @@
+bodypart_sizes:
+  arm: 10
+  leg: 10
+  head: 5
+  torso: 10
